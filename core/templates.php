@@ -27,16 +27,16 @@ $indexfile = <<<'EOT'
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header clearfix">
-                        <h2 class="float-left">{TABLE_DISPLAY} Details</h2>
-                        <a href="{TABLE_NAME}-create.php" class="btn btn-success float-right">Add New Record</a>
-                        <a href="{TABLE_NAME}-index.php" class="btn btn-info float-right mr-2">Reset View</a>
-                        <a href="index.php" class="btn btn-secondary float-right mr-2">Back</a>
+                        <h2 class="float-left">{TABLE_DISPLAY} - listado</h2>
+                        <a href="{TABLE_NAME}-create.php" class="btn btn-success float-right">Añadir</a>
+                        <a href="{TABLE_NAME}-index.php" class="btn btn-info float-right mr-2">Reset</a>
+                        <a href="index.php" class="btn btn-secondary float-right mr-2">Atrás</a>
                     </div>
 
                     <div class="form-row">
                         <form action="{TABLE_NAME}-index.php" method="get">
                         <div class="col">
-                          <input type="text" class="form-control" placeholder="Search this table" name="search">
+                          <input type="text" class="form-control" placeholder="Buscar en esta tabla" name="search">
                         </div>
                     </div>
                         </form>
@@ -114,13 +114,13 @@ $indexfile = <<<'EOT'
                                $total_pages = ceil(mysqli_num_rows($result_count) / $no_of_records_per_page);
                            }
                             $number_of_results = mysqli_num_rows($result_count);
-                            echo " " . $number_of_results . " results - Page " . $pageno . " of " . $total_pages;
+                            echo " " . $number_of_results . " resultados - Página " . $pageno . " de " . $total_pages;
 
                             echo "<table class='table table-bordered table-striped'>";
                                 echo "<thead>";
                                     echo "<tr>";
                                         {INDEX_TABLE_HEADERS}
-                                        echo "<th>Action</th>";
+                                        echo "<th>Acción</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -128,9 +128,9 @@ $indexfile = <<<'EOT'
                                     echo "<tr>";
                                     {INDEX_TABLE_ROWS}
                                         echo "<td>";
-                                            echo "<a href='{TABLE_NAME}-read.php?{COLUMN_ID}=". $row['{COLUMN_NAME}'] ."' title='View Record' data-toggle='tooltip'><i class='far fa-eye'></i></a>";
-                                            echo "<a href='{TABLE_NAME}-update.php?{COLUMN_ID}=". $row['{COLUMN_NAME}'] ."' title='Update Record' data-toggle='tooltip'><i class='far fa-edit'></i></a>";
-                                            echo "<a href='{TABLE_NAME}-delete.php?{COLUMN_ID}=". $row['{COLUMN_NAME}'] ."' title='Delete Record' data-toggle='tooltip'><i class='far fa-trash-alt'></i></a>";
+                                            echo "<a href='{TABLE_NAME}-read.php?{COLUMN_ID}=". $row['{COLUMN_NAME}'] ."' title='Ver' data-toggle='tooltip'><i class='far fa-eye'></i></a>";
+                                            echo "<a href='{TABLE_NAME}-update.php?{COLUMN_ID}=". $row['{COLUMN_NAME}'] ."' title='Actualizar' data-toggle='tooltip'><i class='far fa-edit'></i></a>";
+                                            echo "<a href='{TABLE_NAME}-delete.php?{COLUMN_ID}=". $row['{COLUMN_NAME}'] ."' title='Borrar' data-toggle='tooltip'><i class='far fa-trash-alt'></i></a>";
                                         echo "</td>";
                                     echo "</tr>";
                                 }
@@ -141,22 +141,22 @@ $indexfile = <<<'EOT'
                                 <?php
                                     $new_url = preg_replace('/&?pageno=[^&]*/', '', $currenturl);
                                  ?>
-                                    <li class="page-item"><a class="page-link" href="<?php echo $new_url .'&pageno=1' ?>">First</a></li>
+                                    <li class="page-item"><a class="page-link" href="<?php echo $new_url .'&pageno=1' ?>">Primera</a></li>
                                     <li class="page-item <?php if($pageno <= 1){ echo 'disabled'; } ?>">
                                         <a class="page-link" href="<?php if($pageno <= 1){ echo '#'; } else { echo $new_url ."&pageno=".($pageno - 1); } ?>">Prev</a>
                                     </li>
                                     <li class="page-item <?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
-                                        <a class="page-link" href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo $new_url . "&pageno=".($pageno + 1); } ?>">Next</a>
+                                        <a class="page-link" href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo $new_url . "&pageno=".($pageno + 1); } ?>">Sig</a>
                                     </li>
                                     <li class="page-item <?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
-                                        <a class="page-item"><a class="page-link" href="<?php echo $new_url .'&pageno=' . $total_pages; ?>">Last</a>
+                                        <a class="page-item"><a class="page-link" href="<?php echo $new_url .'&pageno=' . $total_pages; ?>">Última</a>
                                     </li>
                                 </ul>
 <?php
                             // Free result set
                             mysqli_free_result($result);
                         } else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
+                            echo "<p class='lead'><em>No se han encontrado resultados.</em></p>";
                         }
                     } else{
                         echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
@@ -239,7 +239,7 @@ if(isset($_GET["{TABLE_ID}"]) && !empty($_GET["{TABLE_ID}"])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Record</title>
+    <title>Ver</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <?php require_once('navbar.php'); ?>
@@ -249,12 +249,14 @@ if(isset($_GET["{TABLE_ID}"]) && !empty($_GET["{TABLE_ID}"])){
             <div class="row">
                 <div class="col-md-8 mx-auto">
                     <div class="page-header">
-                        <h1>View Record</h1>
+                        <h1>Ver</h1>
                     </div>
 
                      {RECORDS_READ_FORM}
-
-                    <p><a href="{TABLE_NAME}-index.php" class="btn btn-primary">Back</a></p>
+                    <div class="row">
+                        <div class="col-md-4"><a href="{TABLE_NAME}-index.php" class="btn btn-primary">Atrás</a></div>
+                        <div class="col-md-4"><a href="{TABLE_NAME}-update.php?id=<?php echo $param_id; ?>" class="btn btn-warning">Editar</a></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,7 +320,7 @@ if(isset($_POST["{TABLE_ID}"]) && !empty($_POST["{TABLE_ID}"])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Record</title>
+    <title>Eliminar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <?php require_once('navbar.php'); ?>
@@ -328,14 +330,14 @@ if(isset($_POST["{TABLE_ID}"]) && !empty($_POST["{TABLE_ID}"])){
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <div class="page-header">
-                        <h1>Delete Record</h1>
+                        <h1>Eliminar</h1>
                     </div>
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                         <div class="alert alert-danger fade-in">
                             <input type="hidden" name="{TABLE_ID}" value="<?php echo trim($_GET["{TABLE_ID}"]); ?>"/>
-                            <p>Are you sure you want to delete this record?</p><br>
+                            <p>¿Esta seguro de que desea eliminar estos datos?</p><br>
                             <p>
-                                <input type="submit" value="Yes" class="btn btn-danger">
+                                <input type="submit" value="Si" class="btn btn-danger">
                                 <a href="{TABLE_NAME}-index.php" class="btn btn-secondary">No</a>
                             </p>
                         </div>
@@ -396,7 +398,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Record</title>
+    <title>Crear</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <?php require_once('navbar.php'); ?>
@@ -406,15 +408,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <div class="page-header">
-                        <h2>Create Record</h2>
+                        <h2>Crear</h2>
                     </div>
-                    <p>Please fill this form and submit to add a record to the database.</p>
+                    <p>Por favor rellena este formulario según las intrucciones dadas y pulsa en "Crear".</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
                         {CREATE_HTML}
 
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="{TABLE_NAME}-index.php" class="btn btn-secondary">Cancel</a>
+                        <input type="submit" class="btn btn-primary" value="Crear">
+                        <a href="{TABLE_NAME}-index.php" class="btn btn-secondary">Cancelar</a>
                     </form>
                 </div>
             </div>
@@ -528,7 +530,7 @@ if(isset($_POST["{COLUMN_ID}"]) && !empty($_POST["{COLUMN_ID}"])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Record</title>
+    <title>Editar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <?php require_once('navbar.php'); ?>
@@ -540,14 +542,14 @@ if(isset($_POST["{COLUMN_ID}"]) && !empty($_POST["{COLUMN_ID}"])){
                     <div class="page-header">
                         <h2>Update Record</h2>
                     </div>
-                    <p>Please edit the input values and submit to update the record.</p>
+                    <p>Por favor rellena este formulario según las intrucciones dadas y pulsa en "Editar".</p>
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
 
                         {CREATE_HTML}
 
                         <input type="hidden" name="{COLUMN_ID}" value="<?php echo ${COLUMN_ID}; ?>"/>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="{TABLE_NAME}-index.php" class="btn btn-secondary">Cancel</a>
+                        <input type="submit" class="btn btn-primary" value="Editar">
+                        <a href="{TABLE_NAME}-index.php" class="btn btn-secondary">Cancelar</a>
                     </form>
                 </div>
             </div>
@@ -572,10 +574,10 @@ $errorfile = <<<'EOT'
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
-                        <h1>Invalid Request</h1>
+                        <h1>Petición invalida</h1>
                     </div>
                     <div class="alert alert-danger fade-in">
-                        <p>Sorry, you've made an invalid request. Please <a href="index.php" class="alert-link">go back</a> and try again.</p>
+                        <p>Lo siento, has hecho una petición. Por favor <a href="index.php" class="alert-link">vuelve atrás</a> e intentalo de nuevo.</p>
                     </div>
                 </div>
             </div>
@@ -623,7 +625,7 @@ $navbarfile = <<<'EOT'
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Select Page
+          Secciones
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         {TABLE_BUTTONS}                                                                                                                                                                                                     
