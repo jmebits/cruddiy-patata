@@ -319,7 +319,7 @@ function generate($postdata) {
 
                         $columns_available [] = $columnname;
                         $index_table_headers .= 'echo "<th><a href=?search=$search&sort='.$sort.'&order='.$columnname.'&sort=$sort>'.$columndisplay.'</th>";'."\n\t\t\t\t\t\t\t\t\t\t";
-                        $index_table_rows .= 'echo "<td>" . htmlspecialchars($row['. "'" . $columnname . "'" . ']) . "</td>";';
+                        $index_table_rows .= 'echo "<td>" . get_html_a_if_url($row['. "'" . $columnname . "'" . ']) . "</td>";';
                         $i++;
                     }
                 }

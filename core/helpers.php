@@ -78,4 +78,13 @@ function get_columns_attributes($table_name, $column) {
         return $row;
     }
 }
+
+// returns as html <a> link if text is url
+function get_html_a_if_url($text){
+    if(filter_var($text, FILTER_VALIDATE_URL)){
+        return '<a href="'.$text.'" target="_blank">'.$text.'</a>';
+    } else{
+        return htmlspecialchars($text);
+    }
+}
 ?>
