@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $total_postvars = count($_POST, COUNT_RECURSIVE);
 $max_postvars = ini_get("max_input_vars"); 
 if ($total_postvars >= $max_postvars) {
