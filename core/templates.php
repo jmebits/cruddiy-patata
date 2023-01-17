@@ -29,17 +29,23 @@ $indexfile = <<<'EOT'
                     <div class="page-header clearfix">
                         <h2 class="float-left">{TABLE_DISPLAY} - listado</h2>
                         <a href="{TABLE_NAME}-create.php" class="btn btn-success float-right">Añadir</a>
-                        <a href="{TABLE_NAME}-index.php" class="btn btn-info float-right mr-2">Reset</a>
                         <a href="index.php" class="btn btn-secondary float-right mr-2">Atrás</a>
                     </div>
 
                     <div class="form-row">
                         <form action="{TABLE_NAME}-index.php" method="get">
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="Buscar en esta tabla" name="search">
+                        <div class="col-auto input-group">
+                            <input type="text" class="form-control" placeholder="Busca en esta tabla" name="search">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-outline-secondary" ">Buscar</button>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="col-auto">
+                            <a href="{TABLE_NAME}-index.php" class="btn btn-info float-right mr-2">Reset</a>
                         </div>
                     </div>
-                        </form>
+                        
                     <br>
 
                     <?php
