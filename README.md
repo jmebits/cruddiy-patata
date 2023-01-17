@@ -4,5 +4,5 @@ Fork de [Cruddiy](https://github.com/jan-vandenberg/cruddiy), un generador de CR
 
 ### Cambios 
 * Plantillas en castellano
-* Funcion helper que convierte campos que sean urls en enlaces
-* Cambios menores en plantillas
+* Funciones helper 
+* Cambios de estilo en plantillas
