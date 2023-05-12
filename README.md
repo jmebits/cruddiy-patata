@@ -1,8 +1,8 @@
 # CRUDDIY-PATATA
 
-Fork de [Cruddiy](https://github.com/jan-vandenberg/cruddiy), un generador de CRUD con PHP y Bootstrap 4.
+Fork para uso propio de [Cruddiy](https://github.com/jan-vandenberg/cruddiy), un generador de CRUD con PHP y Bootstrap 4.
 
 ### Cambios 
 * Plantillas en castellano
 * Funciones helper 
-* Cambios de estilo en plantillas
+* Ligeros cambios de estilo en plantillas
